@@ -39,7 +39,6 @@ class LinkedList:
         while current_data.next:
             current_data = current_data.next
         current_data.next = Node(data)
-
         return
 
     def delete_node_by_index(self,index):
@@ -86,6 +85,36 @@ class LinkedList:
             current_node = current_node.next
         return current_node.next
 
+    def find_kth_node_from_endpoint_by_index(self,index):
+        self.validate_index_under_zero(index)
+        self.validate()
+        length_of_linked_lit = self.length_of_linked_list()
+
+        if index > length_of_linked_lit:
+            return '리스트를 벗어난 영역의 인덱스 입니다.'
+
+        if index == length_of_linked_lit:
+            return self.head
+
+        count = 1
+        current_node = self.head
+        while current_node:
+            if count == length_of_linked_lit-index+1:
+                return current_node
+            count +=1
+            current_node = current_node.next
+        return None
+
+
+    def length_of_linked_list(self):
+        self.validate()
+        count = 0
+        current_node = self.head
+        while current_node:
+            count += 1
+            current_node = current_node.next
+        return count
+
 
 
 linked_list = LinkedList(1)
@@ -100,3 +129,5 @@ linked_list.delete_node_by_index(3)
 print()
 print(linked_list.get_all_components())
 print(linked_list.get_node(3).data)
+print(linked_list.length_of_linked_list())
+print(linked_list.find_kth_node_from_endpoint_by_index(3).data)
